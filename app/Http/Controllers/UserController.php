@@ -8,17 +8,33 @@ use App\Helpers\UserHelper;
 
 class UserController extends Controller
 {
+      /**
+     * Display a listing of the users.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         $users = User::orderBy('id', 'desc')->paginate(10);
         return view('users.dashboard', ['users' => $users]);
     }
 
+     /**
+     * Show the form for creating a new user.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         return view('users.create');
     }
 
+     /**
+     * Store a newly created user in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $validator = UserHelper::validateUserRequest($request);
@@ -38,12 +54,25 @@ class UserController extends Controller
         return redirect()->route('admin.index')->with('success', 'User was created successfully');
     }
 
+    /**
+     * Show the form for editing the specified user.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
     public function edit($id)
     {
         $user = User::find($id);
         return view('users.edit', ['user' => $user]);
     }
 
+    /**
+     * Update the specified user in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, $id)
     {
         $validator = UserHelper::validateUserRequest($request, $id);
@@ -69,6 +98,13 @@ class UserController extends Controller
     }
 
 
+    /**
+     * Remove the specified user from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Request $request, $id)
     {
         try {
