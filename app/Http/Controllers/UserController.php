@@ -8,7 +8,7 @@ use App\Helpers\UserHelper;
 
 class UserController extends Controller
 {
-      /**
+    /**
      * Display a listing of the users.
      *
      * @return \Illuminate\View\View
@@ -19,7 +19,7 @@ class UserController extends Controller
         return view('users.dashboard', ['users' => $users]);
     }
 
-     /**
+    /**
      * Show the form for creating a new user.
      *
      * @return \Illuminate\View\View
@@ -29,7 +29,7 @@ class UserController extends Controller
         return view('users.create');
     }
 
-     /**
+    /**
      * Store a newly created user in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -51,7 +51,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('admin.index')->with('success', 'User was created successfully');
+        return redirect()->route('admin.user.index')->with('success', 'User was created successfully');
     }
 
     /**
@@ -94,7 +94,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('admin.index')->with('success', 'User was updated successfully');
+        return redirect()->route('admin.user.index')->with('success', 'User was updated successfully');
     }
 
 
@@ -110,12 +110,12 @@ class UserController extends Controller
         try {
             $user = User::find($id);
             $user->delete();
-            return redirect()->route('admin.index')->with('success', 'User was deleted successfully');
+            return redirect()->route('admin.user.index')->with('success', 'User was deleted successfully');
         } catch (\Exception $e) {
             if ($e->getCode() == 23000) {
-                return redirect()->route('admin.index')->with('error', 'Cannot delete user. It has associated car records.');
+                return redirect()->route('admin.user.index')->with('error', 'Cannot delete user. It has associated car records.');
             }
-            return redirect()->route('admin.index')->with('error', 'An error occurred while deleting the user.');
+            return redirect()->route('admin.user.index')->with('error', 'An error occurred while deleting the user.');
         }
     }
 

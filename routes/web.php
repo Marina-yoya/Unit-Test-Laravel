@@ -23,24 +23,23 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/home', [HomeController::class, 'dashboard'])->name('dashboard');
-        Route::get('/usermanagement', [UserController::class, 'index'])->name('index');
 
         Route::prefix('car')->name('car.')->group(function () {
             Route::get('/management', [CarController::class, 'index'])->name('index');
             Route::get('/createcar', [CarController::class, 'create'])->name('create');
             Route::post('/createcar', [CarController::class, 'store'])->name('store');
             Route::get('/editcar/{id}', [CarController::class, 'edit'])->name('edit');
-            Route::post('/editcar/{id}', [CarController::class, 'Update'])->name('update');
-            Route::get('/deletecar/{id}', [CarController::class, 'Destroy'])->name('destroy');
+            Route::post('/editcar/{id}', [CarController::class, 'update'])->name('update');
+            Route::get('/deletecar/{id}', [CarController::class, 'destroy'])->name('destroy');
         });
 
 
         Route::prefix('user')->name('user.')->group(function () {
+            Route::get('/management', [UserController::class, 'index'])->name('index');
             Route::get('/createuser', [UserController::class, 'create'])->name('create');
             Route::post('/createuser', [UserController::class, 'store'])->name('store');
             Route::get('/edituser/{id}', [UserController::class, 'edit'])->name('edit');
